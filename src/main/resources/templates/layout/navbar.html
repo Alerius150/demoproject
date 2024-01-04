@@ -27,7 +27,7 @@
                 <a class="nav-link" href="JavaScript:void(0)" onclick="document.getElementById('logoutFormId').submit()" th:text="#{label.logout}">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/additem'}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')">Add item</a>
+                    <a class="nav-link" th:href="@{'/additem'}" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')" th:text="#{button.add}"></a>
                 </li>
                 <li class="nav-item" >
                     <a class="nav-link" href="?lng=ru">RUS</a>
@@ -38,11 +38,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="?lng=kz">KAZ</a>
                 </li>
-                <form th:action="@{'/logout'}"></form>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-
+                <form th:action="@{'/logout'}" method="post" id="logoutFormId" sec:authorize="isAuthenticated()"></form>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" th:placeholder="#{label.search}" aria-label="Search">

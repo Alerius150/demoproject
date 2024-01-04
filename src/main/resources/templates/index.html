@@ -26,7 +26,7 @@
                             <span th:each="cat : ${it.categories}" th:text="${cat.name}" style="display: block;"></span>
                         </td>
                         <td th:text="${it.country!=null?it.country.name + ' - ' + it.country.code : '-----'}"></td>
-                        <td><a th:href="@{'/details' + ${it.id}}" class="btn btn-info btn-sm" th:text="#{label.details}"></a></td>
+                        <td><a th:href="@{'/details/' + ${it.id}}" class="btn btn-info btn-sm" th:text="#{label.details}"></a></td>
                     </tr>
                     </tbody>
                 </table>

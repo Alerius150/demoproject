@@ -95,8 +95,9 @@ public class HomeController {
         return "redirect:/index";
     }
 
-    @GetMapping(value="/details/?id={idshka}")
-    public String details(Model model, @PathVariable(name="idshka") Long id){
+    @GetMapping(value="/details/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
+    public String details(Model model, @PathVariable(name="id") Long id){
 
         model.addAttribute("currentUser", getUserData());
 
@@ -108,12 +109,12 @@ public class HomeController {
 
         List<Categories> categories = itemService.getAllCategories();
         model.addAttribute("categories", categories);
-        return "details?id="+id;
+        return "details";
     }
 
-    @GetMapping(value="/edititem/{idshka")
+    @GetMapping(value="/edititem/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
-    public String editItem(Model model, @PathVariable(name="idshka") Long id){
+    public String editItem(Model model, @PathVariable(name="id") Long id){
 
         model.addAttribute("currentUser", getUserData());
 
@@ -125,7 +126,7 @@ public class HomeController {
 
         List<Categories> categories = itemService.getAllCategories();
         model.addAttribute("categories", categories);
-        return "edititem";
+        return "edititem/" + id;
     }
 
 
@@ -133,7 +134,7 @@ public class HomeController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MODERATOR')")
     public String saveItem(@RequestParam(name="id", defaultValue = "0") Long id,
                            @RequestParam(name="country_id", defaultValue = "0") Long country_id,
-                           @RequestParam(name="item_name", defaultValue = "No Item!!!") String name,
+                           @RequestParam(name="item_name", defaultValue = "No item") String name,
                            @RequestParam(name="item_price", defaultValue = "0") int price,
                            @RequestParam(name="item_amount", defaultValue = "0") int amount){
 
